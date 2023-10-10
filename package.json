@@ -1,0 +1,64 @@
+{
+  "name": "tictic",
+  "version": "0.1.0",
+  "description": "Flexible library for date and time management",
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "scripts": {
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+    "lint": "eslint --fix \"src/**/*.{js,ts,jsx,tsx}\"",
+    "prettier": "prettier --write \"src/**/*.{js,ts,jsx,tsx}\"",
+    "prepare": "npm run build",
+    "prepublishOnly": "rm -rf dist && npm run build && npm run prettier && cp -r dist/* ./",
+    "postpublish": "rm -rf cjs esm"
+  },
+  "files": [
+    "esm",
+    "cjs",
+    "LICENSE.md",
+    "README.md"
+  ],
+  "keywords": [
+    "ts",
+    "js",
+    "javascript",
+    "typescript",
+    "lib",
+    "date",
+    "time",
+    "formatter",
+    "timer",
+    "countdown"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teplostanski/tictic.git"
+  },
+  "author": {
+    "name": "Igor Teplostanski",
+    "email": "teplostanski@yandex.ru",
+    "url": "https://teplostanski.dev"
+  },
+  "homepage": "https://github.com/teplostanski/tictic/README.md",
+  "bugs": {
+    "url": "https://github.com/teplostanski/tictic/issues",
+    "email": "teplostanski@yandex.ru"
+  },
+  "license": "GPL-3.0-only",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/parser": "^5.27.1",
+    "eslint": "^8.17.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.6.2",
+    "typescript": "^4.7.3"
+  },
+  "dependencies": {
+    "tslib": "^2.6.1"
+  }
+}
