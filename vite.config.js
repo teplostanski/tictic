@@ -1,23 +1,20 @@
 import { defineConfig } from 'vite'
+import dts from 'vite-plugin-dts'
 
 export default defineConfig({
   build: {
     lib: {
-      //entry: {
-      //  fn1: 'src/lib/fn1.ts',
-      //  fn2: 'src/lib/fn2.ts',
-      //  common: ['src/lib/fn1.ts', 'src/lib/fn2.ts'], // Общий файл для всех функций
-      //},
-      entry: 'src/index.ts',
-      name: 'tictic',
+      entry: './src/index.ts', // Ваш входной файл
+      name: 'tictic', // Имя вашей библиотеки
+      fileName: (format) => `index.${format}.js`, // Формат имени выходных файлов
       formats: ['es', 'umd'],
     },
     rollupOptions: {
-      output: {
-        format: 'umd',
-        //exports: 'named',
-        //sourcemap: true,
-      },
+      // Дополнительные опции Rollup
     },
   },
+  plugins: [
+    // Добавляем плагин для генерации файла .d.ts
+    dts(),
+  ],
 })

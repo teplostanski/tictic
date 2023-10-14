@@ -9,8 +9,8 @@
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "jsx": "react",
-    "skipLibCheck": true,
+    //"jsx": "react",
+    //"skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "target": "ESNext",
     "module": "ESNext",
@@ -18,17 +18,9 @@
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
-    "baseUrl": "./",
-    "paths": {
-      "@*": ["src/*"]
-    },
-    "declaration": true,
-    "declarationDir": "./types",
-    
+    "declaration": true, // Включить генерацию файлов объявлений типов
     "moduleResolution": "Node",
-
-
     "isolatedModules": true,
-    "noEmit": true,
+    //"noEmit": true
   }
 }
