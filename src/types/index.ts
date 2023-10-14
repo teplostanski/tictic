@@ -10,7 +10,16 @@ type TCommontDateTimeTypes = {
 
 export type TLetterCase = 'capitalize' | 'uppercase' | 'lowercase'
 
-export type TGetDate = TCommontDateTimeTypes & {
+/**
+ * Options for time formatting.
+ */
+export type TTimeOptions = TCommontDateTimeTypes & {
+  time?: TDate | number
+  sep?: string
+  format?: 'hh:mm:ss' | 'hh:mm:ss 12h' | 'hh:mm' | 'hh:mm 12h' | 'mm:ss' | 'mm:ss 12h'
+}
+
+export type TDateOptions = TCommontDateTimeTypes & {
   /**
    * @default 'YYYY-MM-DD'
    */

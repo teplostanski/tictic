@@ -1,5 +1,6 @@
+import { formatValueWithLeadingZero } from '../helpers/formatValueWithLeadingZero'
 import { setLetterCase } from '../helpers/setLetterCase'
-import { TGetDate, TDate } from '../types'
+import { TDateOptions, TDate } from '../types'
 
 /**
  * The function returns a string with a formatted date
@@ -25,7 +26,7 @@ import { TGetDate, TDate } from '../types'
  * @returns A string with a formatted date
  */
 
-export const getDate = (config: TGetDate) => {
+export const getFormattedDate = (config: TDateOptions) => {
   const {
     date = new Date(),
     sep = '.',
@@ -52,7 +53,8 @@ export const getDate = (config: TGetDate) => {
   const YMD = /YY-MM-DD/
   const YDM = /YY-DD-MM/
   const MDY = /MM-DD-YY/
-  let RESULT: any[] = []
+
+  let resultArray: any[] = []
 
   /**
    * Set the date, taking into account possible day increment or decrement.
@@ -74,7 +76,7 @@ export const getDate = (config: TGetDate) => {
    */
   function getDay() {
     if (exclude.day) return null
-    return getValueWithZero(DATE.getDate())
+    return formatValueWithLeadingZero(DATE.getDate())
   }
 
   /**
@@ -98,7 +100,7 @@ export const getDate = (config: TGetDate) => {
   function getMonth() {
     if (exclude.month) return null
     if (nameOfMonths) return nameOfMonths[DATE.getMonth()]
-    return getValueWithZero(DATE.getMonth() + 1)
+    return formatValueWithLeadingZero(DATE.getMonth() + 1)
   }
 
   /**
@@ -110,17 +112,6 @@ export const getDate = (config: TGetDate) => {
     if (exclude.year) return null
     if (format.match(/YYYY/)) return DATE.getFullYear()
     return DATE.getFullYear().toString().substring(2)
-  }
-
-  /**
-   * Add leading zero to a value if not excluded and return it as a string.
-   *
-   * @param value The value to format
-   * @returns The formatted value as a string
-   */
-  function getValueWithZero(value: string | number) {
-    const string = value.toString()
-    return !exclude.zero ? string.padStart(2, '0') : string
   }
 
   /**
@@ -137,10 +128,10 @@ export const getDate = (config: TGetDate) => {
     try {
       switch (position) {
         case 'start':
-          RESULT = [string, ...RESULT]
+          resultArray = [string, ...resultArray]
           break
         case 'end':
-          RESULT = [...RESULT, string]
+          resultArray = [...resultArray, string]
           break
         default:
           throw new Error(
@@ -167,7 +158,5 @@ export const getDate = (config: TGetDate) => {
 
   weekDays.set && addItemToResult([WEEKDAY], weekDays.position)
 
-  console.log(RESULT)
-
-  return RESULT.join(' ')
+  return resultArray.join(' ')
 }

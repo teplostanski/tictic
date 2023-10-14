@@ -1,4 +1,6 @@
-import { getDate } from '@/lib/getDate'
-import { getTime } from '@/lib/getTime'
+import { getFormattedDate } from './lib/getFormattedDate'
+import { getFormattedTime } from './lib/getFormattedTime'
+//import { TDate, TGetDate, TLetterCase } from './types'
 
-export { getDate, getDate as getFormattedDate, getTime }
+export { getFormattedDate, getFormattedTime }
+//export type { TDate, TGetDate, TLetterCase }
