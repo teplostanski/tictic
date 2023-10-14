@@ -4,7 +4,7 @@ export default {
   transform: {},
   moduleFileExtensions: ['js', 'json', 'ts'],
   moduleNameMapper: {},
-  testMatch: ['**/__tests__/**/*.ts?(x)', '**/?(*.)+(spec|test).ts?(x)'],
+  testMatch: ['src/**/__tests__/**/*.ts?(x)', '**/?(*.)+(spec|test).ts?(x)'],
   globals: {
     'ts-jest': {
       tsconfig: 'tsconfig.json',

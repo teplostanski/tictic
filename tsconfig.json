@@ -10,17 +10,16 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     //"jsx": "react",
-    //"skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "target": "ESNext",
     "module": "ESNext",
-    "outDir": "./dist",
+    "outDir": "./types",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
-    "declaration": true, // Включить генерацию файлов объявлений типов
+    "declaration": true,
+    "declarationMap": true,
     "moduleResolution": "Node",
     "isolatedModules": true,
-    //"noEmit": true
   }
 }

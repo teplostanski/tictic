@@ -1,17 +1,19 @@
 {
   "name": "tictic",
-  "version": "0.1.2-beta8",
+  "version": "0.2.0-beta1",
   "description": "Flexible library for date and time management",
   "type": "module",
-  "main": "./dist/tictic.js",
-  "module": "./dist/tictic.js",
+  "main": "./dist/index.es.js",
+  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "vite build",
+    "build": "npm run test && vite build && npx tsc && npm run build:types",
+    "build:types": "rollup -c rollup.config.dts.js",
     "lint": "eslint --fix \"src/**/*.{js,ts,jsx,tsx}\"",
     "prettier": "prettier --write \"src/**/*.{js,ts,jsx,tsx}\"",
     "prepare": "npm run build",
-    "test": "jest"
+    "test": "jest",
+    "prepublish": "npm run build"
   },
   "files": [
     "./dist",
@@ -55,6 +57,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^29.7.0",
     "prettier": "^2.6.2",
+    "rollup": "^4.1.0",
+    "rollup-plugin-dts": "^6.1.0",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5",
