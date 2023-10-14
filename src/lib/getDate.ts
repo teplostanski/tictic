@@ -54,6 +54,12 @@ export const getDate = (config: TGetDate) => {
   const MDY = /MM-DD-YY/
   let RESULT: any[] = []
 
+  /**
+   * Set the date, taking into account possible day increment or decrement.
+   *
+   * @param value The input date value
+   * @returns The modified Date object
+   */
   function setDate(value: TDate) {
     const date = new Date(value)
     incDay && date.setDate(date.getDate() + incDay)
@@ -61,11 +67,21 @@ export const getDate = (config: TGetDate) => {
     return date
   }
 
+  /**
+   * Get the day of the month or return null if it's excluded.
+   *
+   * @returns The day of the month or null
+   */
   function getDay() {
     if (exclude.day) return null
     return getValueWithZero(DATE.getDate())
   }
 
+  /**
+   * Get the weekday with localization and formatting options.
+   *
+   * @returns The formatted weekday
+   */
   function getWeekday() {
     const weekday = DATE.toLocaleString(weekDays.locale, {
       weekday: weekDays.format,
@@ -74,23 +90,46 @@ export const getDate = (config: TGetDate) => {
     return setLetterCase(weekday, weekDays.case)
   }
 
+  /**
+   * Get the month or its name (if provided) or return null if it's excluded.
+   *
+   * @returns The month or its name
+   */
   function getMonth() {
     if (exclude.month) return null
     if (nameOfMonths) return nameOfMonths[DATE.getMonth()]
     return getValueWithZero(DATE.getMonth() + 1)
   }
 
+  /**
+   * Get the year or its shortened representation (if provided) or return null if it's excluded.
+   *
+   * @returns The year or its shortened representation
+   */
   function getYear() {
     if (exclude.year) return null
     if (format.match(/YYYY/)) return DATE.getFullYear()
     return DATE.getFullYear().toString().substring(2)
   }
 
+  /**
+   * Add leading zero to a value if not excluded and return it as a string.
+   *
+   * @param value The value to format
+   * @returns The formatted value as a string
+   */
   function getValueWithZero(value: string | number) {
     const string = value.toString()
     return !exclude.zero ? string.padStart(2, '0') : string
   }
 
+  /**
+   * Add items to the result array at the specified position with an optional separator.
+   *
+   * @param value The array of items to add
+   * @param position The position to add items ('start' or 'end')
+   * @param sep The optional delimiter string
+   */
   function addItemToResult(value: any[], position: string, sep?: string) {
     const array = value.filter((element: any) => element !== null)
     const string = sep ? array.join(sep) : array.join('')
