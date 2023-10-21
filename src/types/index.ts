@@ -13,8 +13,14 @@ export type TLetterCase = 'capitalize' | 'uppercase' | 'lowercase'
 /**
  * Options for time formatting.
  */
-export type TTimeOptions = TCommontDateTimeTypes & {
+export type TTimeOptions = {
+  /**
+   * @param time - Time in milliseconds since the Unix Epoch. Defaults to the current time.
+   */
   time?: TDate | number
+  /**
+   * @param sep lffffsdfsd
+   */
   sep?: string
   format?: 'hh:mm:ss' | 'hh:mm:ss 12h' | 'hh:mm' | 'hh:mm 12h' | 'mm:ss' | 'mm:ss 12h'
 }
