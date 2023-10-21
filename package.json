@@ -14,7 +14,7 @@
     "prepare": "npm run build && npm run doc",
     "test": "jest",
     "prepublish": "npm run build && npm run doc",
-    "postpublish": "git add . && git commit -m 'docs: write docs and update README.md'",
+    "postpublish": "git add . && git commit -m 'docs: generate docs and update README.md'",
     "geninfo": "chmod +rx generatePkgInfo.cjs && node generatePkgInfo.cjs",
     "doc": "typedoc --readme none --options typedoc.config.cjs --includeVersion --entryPointStrategy Expand --entryDocument index.md --excludeGroups true && npm run replace",
     "replace": "npm run geninfo && chmod +rx generatePkgInfo.cjs && node replaceInDoc.js",

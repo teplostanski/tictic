@@ -5,6 +5,10 @@ echo "This script runs after every commit!"
 if git log --format=%B -n 1 HEAD | grep -q "chore(release):"; then
   exit 0
 fi
-npm run doc
+if git log --format=%B -n 1 HEAD | grep -q "docs: generate docs and update README.md"; then
+  exit 0
+fi
 npm run release
-
+npm run doc
+git add .
+git commit -m 'docs: generate docs and update README.md'
