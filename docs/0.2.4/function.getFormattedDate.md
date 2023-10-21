@@ -8,7 +8,7 @@
 
 The function returns a string with a formatted date
 
-**Source:** [lib/getFormattedDate.ts:29](https://github.com/teplostanski/tictic/blob/88f5cc7/src/lib/getFormattedDate.ts#L29)
+**Source:** [lib/getFormattedDate.ts:29](https://github.com/teplostanski/tictic/blob/f361e96/src/lib/getFormattedDate.ts#L29)
 
 ## Parameters
 
