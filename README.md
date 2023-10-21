@@ -28,7 +28,7 @@ Install `tictic` via npm:
 npm install tictic --save
 ```
 
-# [Docs 0.2.5](./docs/0.2.5/index.md)
+# [Docs 0.2.8](https://github.com/teplostanski/tictic/tree/main/docs/0.2.8/index.md)
 
 ## Usage
 #### Date Formatting
@@ -44,7 +44,7 @@ const formattedDate = getFormattedDate({
   sep: '-',
   format: 'DD-MM-YYYY',
   exclude: { year: false, month: false, day: false, zero: false },
-  nameOfMonths: ['Jan', 'Feb', ...],
+  nameOfMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   weekDays: {
     set: true,
     locale: 'en',
@@ -79,4 +79,4 @@ API Reference
 For a deep dive into each method and its options, please refer to the source code documentation. It provides clear details about each configuration property and its possible values.
 
 ## License
-This project is licensed under the GNU General Public License v3.0 (GPL-3.0). See [LICENSE.md](./LICENSE.md) for more details.
+This project is licensed under the GNU General Public License v3.0 (GPL-3.0). See [LICENSE.md](https://github.com/teplostanski/tictic/blob/main/LICENSE.md) for more details.

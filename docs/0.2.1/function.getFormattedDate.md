@@ -4,7 +4,7 @@
 
 **`Function`**
 
-> **getFormattedDate**(config: [`TDateOptions`](type-alias.TDateOptions.md)): `string`
+> **getFormattedDate**(config: [`IDateOptions`](type-alias.IDateOptions.md)): `string`
 
 The function returns a string with a formatted date
 
@@ -14,7 +14,7 @@ The function returns a string with a formatted date
 
 | Parameter | Type                                         | Description          |
 | :-------- | :------------------------------------------- | :------------------- |
-| config    | [`TDateOptions`](type-alias.TDateOptions.md) | Configuration Object |
+| config    | [`IDateOptions`](type-alias.IDateOptions.md) | Configuration Object |
 
 ## Returns
 

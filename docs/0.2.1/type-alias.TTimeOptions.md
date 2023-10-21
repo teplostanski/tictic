@@ -1,10 +1,10 @@
-[Modules](index.md) > TTimeOptions
+[Modules](index.md) > ITimeOptions
 
-# TTimeOptions
+# ITimeOptions
 
 **`Type alias`**
 
-> **TTimeOptions**: `object`
+> **ITimeOptions**: `object`
 
 Options for time formatting.
 

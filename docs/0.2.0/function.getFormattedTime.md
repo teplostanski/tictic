@@ -4,7 +4,7 @@
 
 **`Function`**
 
-> **getFormattedTime**(options: [`TTimeOptions`](type-alias.TTimeOptions.md)): `string`
+> **getFormattedTime**(options: [`ITimeOptions`](type-alias.ITimeOptions.md)): `string`
 
 Returns a formatted time string based on the provided options.
 
@@ -22,7 +22,7 @@ Will throw an error if the provided separator is not a single character.
 
 | Parameter | Type                                         | Description                             |
 | :-------- | :------------------------------------------- | :-------------------------------------- |
-| options   | [`TTimeOptions`](type-alias.TTimeOptions.md) | Configuration options for the function. |
+| options   | [`ITimeOptions`](type-alias.ITimeOptions.md) | Configuration options for the function. |
 
 ## Returns
 

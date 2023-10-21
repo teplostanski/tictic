@@ -1,5 +1,5 @@
 import { formatValueWithLeadingZero } from '../helpers/formatValueWithLeadingZero'
-import { TTimeOptions } from '../types'
+import { ITimeOptions } from '../types'
 
 /**
  * Object for valid time formats.
@@ -16,18 +16,20 @@ const ValidTimeFormats = {
 /**
  * Returns a formatted time string based on the provided options.
  *
- * @param {TTimeOptions} options - Configuration options for the function.
- * @param {number} [options.time=new Date().getTime()] - Time in milliseconds since the Unix Epoch. Defaults to the current time.
- * @param {string} [options.sep=':'] - Separator character to use between time units. Defaults to `:`.
- * @param {string} [options.format='hh:mm:ss'] - Format in which the time should be returned.
- * Possible formats include `hh:mm:ss`, `hh:mm`, etc. Can also include `12h` for 12-hour time format.
- *
- * @throws Will throw an error if the provided time format is invalid.
- * @throws Will throw an error if the provided separator is not a single character.
- *
+ * {@link ITimeOptions Options}
+ * @param {ITimeOptions} options - Configuration options for the function.
  * @returns {string} Formatted time string.
+ *
+ * @example
+ * ```js
+ * getFormattedTime({
+ *   time: new Date().getTime(),
+ *   sep: ':',
+ *   format: 'hh:mm:ss 12h'
+ * })
+ * ```
  */
-export const getFormattedTime = ({ time = new Date().getTime(), sep = ':', format = 'hh:mm:ss' }: TTimeOptions): string => {
+export const getFormattedTime = ({ time = new Date().getTime(), sep = ':', format = 'hh:mm:ss' }: ITimeOptions): string => {
   if (!Object.values(ValidTimeFormats).includes(format)) {
     throw new Error('Invalid time format')
   }
@@ -74,7 +76,7 @@ export const getFormattedTime = ({ time = new Date().getTime(), sep = ':', forma
  * @param time The time input (Date, number, or string).
  * @returns A Date object representing the time.
  */
-const parseTimeInput = (time: TTimeOptions['time']): Date => {
+const parseTimeInput = (time: ITimeOptions['time']): Date => {
   if (typeof time === 'number') {
     return new Date(time)
   } else if (typeof time === 'string') {

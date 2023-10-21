@@ -1,10 +1,10 @@
-# tictic - v0.2.4
+# tictic - v0.2.8
 
 ## Index
 
+- `Interface` [IDateOptions](interface.IDateOptions.md)
+- `Interface` [ITimeOptions](interface.ITimeOptions.md)
 - `Type` [TDate](type-alias.TDate.md)
-- `Type` [TDateOptions](type-alias.TDateOptions.md)
 - `Type` [TLetterCase](type-alias.TLetterCase.md)
-- `Type` [TTimeOptions](type-alias.TTimeOptions.md)
 - `Func` [getFormattedDate](function.getFormattedDate.md)
 - `Func` [getFormattedTime](function.getFormattedTime.md)

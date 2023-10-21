@@ -12,8 +12,9 @@ module.exports = {
   hidePageHeader: 'true',
   hideInPageTOC: 'true',
   propertiesFormat: 'list',
-  enumMembersFormat: 'list',
-  typeDeclarationFormat: 'list',
+  disableSources: true,
+  enumMembersFormat: 'table',
+  typeDeclarationFormat: 'table',
   replaceText: {
     inCodeCommentText: true,
     inCodeCommentTags: true,
