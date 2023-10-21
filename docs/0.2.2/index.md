@@ -2,9 +2,9 @@
 
 ## Index
 
-- `T` [TDate](type-alias.TDate.md)
-- `T` [TDateOptions](type-alias.TDateOptions.md)
-- `T` [TLetterCase](type-alias.TLetterCase.md)
-- `T` [TTimeOptions](type-alias.TTimeOptions.md)
-- `F` [getFormattedDate](function.getFormattedDate.md)
-- `F` [getFormattedTime](function.getFormattedTime.md)
+- `Type` [TDate](type-alias.TDate.md)
+- `Type` [TDateOptions](type-alias.TDateOptions.md)
+- `Type` [TLetterCase](type-alias.TLetterCase.md)
+- `Type` [TTimeOptions](type-alias.TTimeOptions.md)
+- `Func` [getFormattedDate](function.getFormattedDate.md)
+- `Func` [getFormattedTime](function.getFormattedTime.md)

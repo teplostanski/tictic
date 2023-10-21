@@ -6,4 +6,4 @@
 
 > **TDate**: `Date` \| `string`
 
-**Source:** [types/index.ts:1](https://github.com/teplostanski/tictic/blob/bcd0925/src/types/index.ts#L1)
+**Source:** [types/index.ts:1](https://github.com/teplostanski/tictic/blob/66f4d65/src/types/index.ts#L1)
