@@ -19,7 +19,7 @@
     "doc": "typedoc --readme none --options typedoc.config.cjs --includeVersion --entryPointStrategy Expand --entryDocument index.md --excludeGroups true && npm run replace",
     "replace": "npm run geninfo && chmod +rx generatePkgInfo.cjs && node replaceInDoc.js",
     "release": "standard-version",
-    "push": "[ '$(git rev-parse --abbrev-ref HEAD)' != 'main' ] && echo 'Not on main branch' || git push && git push origin --tags && npm publish"
+    "push": "[ \"$(git rev-parse --abbrev-ref HEAD)\" = \"main\" ] && git push && git push origin --tags && npm publish || echo \"Not on main branch\""
   },
   "files": [
     "./dist",
