@@ -16,7 +16,7 @@ Will throw an error if the provided time format is invalid.
 
 Will throw an error if the provided separator is not a single character.
 
-**Source:** [lib/getFormattedTime.ts:30](https://github.com/teplostanski/tictic/blob/efa7dd5/src/lib/getFormattedTime.ts#L30)
+**Source:** [lib/getFormattedTime.ts:30](https://github.com/teplostanski/tictic/blob/b944eb0/src/lib/getFormattedTime.ts#L30)
 
 ## Parameters
 
