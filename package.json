@@ -17,7 +17,8 @@
     "prebuild": "chmod +rx generatePkgInfo.cjs && node generatePkgInfo.cjs",
     "doc": "typedoc --readme none --options typedoc.config.cjs --includeVersion --entryPointStrategy Expand --entryDocument index.md --excludeGroups true && npm run replace",
     "replace": "chmod +rx generatePkgInfo.cjs && node replaceInDoc.js",
-    "release": "standard-version"
+    "release": "standard-version",
+    "push": "git push --follow-tags origin HEAD && po npmjs.com/teplostanski@yandex.ru && npm publish "
   },
   "files": [
     "./dist",

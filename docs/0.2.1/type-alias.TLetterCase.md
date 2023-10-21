@@ -6,4 +6,4 @@
 
 > **TLetterCase**: "capitalize" \| "uppercase" \| "lowercase"
 
-**Source:** [types/index.ts:11](https://github.com/teplostanski/tictic/blob/839eea0/src/types/index.ts#L11)
+**Source:** [types/index.ts:11](https://github.com/teplostanski/tictic/blob/e8ad257/src/types/index.ts#L11)
