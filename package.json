@@ -1,6 +1,6 @@
 {
   "name": "tictic",
-  "version": "0.2.2",
+  "version": "0.2.1",
   "description": "Flexible library for date and time management",
   "type": "module",
   "main": "./dist/index.es.js",
@@ -18,7 +18,7 @@
     "doc": "typedoc --readme none --options typedoc.config.cjs --includeVersion --entryPointStrategy Expand --entryDocument index.md --excludeGroups true && npm run replace",
     "replace": "npm run geninfo && chmod +rx generatePkgInfo.cjs && node replaceInDoc.js",
     "release": "standard-version",
-    "push": "git push --follow-tags origin HEAD && pass otp -c npmjs.com/teplostanski@yandex.ru | xargs -I {} npm publish --otp={} npm publish "
+    "push": "git push --follow-tags origin HEAD && npm publish"
   },
   "files": [
     "./dist",
