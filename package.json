@@ -18,7 +18,7 @@
     "doc": "typedoc --readme none --options typedoc.config.cjs --includeVersion --entryPointStrategy Expand --entryDocument index.md --excludeGroups true && npm run replace",
     "replace": "chmod +rx generatePkgInfo.cjs && node replaceInDoc.js",
     "release": "standard-version",
-    "push": "git push --follow-tags origin HEAD && po npmjs.com/teplostanski@yandex.ru && npm publish "
+    "push": "git push --follow-tags origin HEAD && pass otp -c npmjs.com/teplostanski@yandex.ru && npm publish "
   },
   "files": [
     "./dist",
