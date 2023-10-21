@@ -8,13 +8,13 @@
 
 Options for time formatting.
 
-**Source:** [types/index.ts:16](https://github.com/teplostanski/tictic/blob/6d63eca/src/types/index.ts#L16)
+**Source:** [types/index.ts:16](https://github.com/teplostanski/tictic/blob/027bf22/src/types/index.ts#L16)
 
 ## Type declaration
 
 > **format**?: "hh:mm:ss" \| "hh:mm:ss 12h" \| "hh:mm" \| "hh:mm 12h" \| "mm:ss" \| "mm:ss 12h"
 
-**Source:** [types/index.ts:25](https://github.com/teplostanski/tictic/blob/6d63eca/src/types/index.ts#L25)
+**Source:** [types/index.ts:25](https://github.com/teplostanski/tictic/blob/027bf22/src/types/index.ts#L25)
 
 > **sep**?: `string`
 
@@ -22,7 +22,7 @@ Options for time formatting.
 
 lffffsdfsd
 
-**Source:** [types/index.ts:24](https://github.com/teplostanski/tictic/blob/6d63eca/src/types/index.ts#L24)
+**Source:** [types/index.ts:24](https://github.com/teplostanski/tictic/blob/027bf22/src/types/index.ts#L24)
 
 > **time**?: [`TDate`](type-alias.TDate.md) \| `number`
 
@@ -30,4 +30,4 @@ lffffsdfsd
 
 Time in milliseconds since the Unix Epoch. Defaults to the current time.
 
-**Source:** [types/index.ts:20](https://github.com/teplostanski/tictic/blob/6d63eca/src/types/index.ts#L20)
+**Source:** [types/index.ts:20](https://github.com/teplostanski/tictic/blob/027bf22/src/types/index.ts#L20)
