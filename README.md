@@ -28,7 +28,7 @@ Install `tictic` via npm:
 npm install tictic --save
 ```
 
-# [Docs 0.2.2](./docs/0.2.2/index.md)
+# [Docs 0.2.5](./docs/0.2.5/index.md)
 
 ## Usage
 #### Date Formatting
