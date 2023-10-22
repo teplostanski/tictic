@@ -9,8 +9,8 @@ const path = require('path')
  * @example
  * getCurrentVersion('./') // might return [1, 2, 3] for version "1.2.3"
  */
-async function getCurrentVersion(directoryPath) {
-  const { version } = require(path.join(directoryPath, 'package.json'))
+async function getCurrentVersion() {
+  const { version } = require(path.join(process.cwd(), 'package.json')) // Изменим путь здесь
   return version.split('.').map(Number)
 }
 
@@ -73,9 +73,9 @@ async function main() {
   const directoryPath = args.find((arg) => !arg.startsWith('--')) || 'docs/'
   const cleanMinor = args.includes('--clean-minor')
 
-  const currentVersion = await getCurrentVersion(directoryPath)
+  const currentVersion = await getCurrentVersion()
   const directories = await getDirectories(directoryPath)
-  const outdatedDirs = getOutdatedDirectories(directories, currentVersion, cleanMinor)
+  const outdatedDirs = await getOutdatedDirectories(directories, currentVersion, cleanMinor)
 
   await removeDirectories(directoryPath, outdatedDirs)
 }
