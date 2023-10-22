@@ -8,9 +8,10 @@ fi
 if git log --format=%B -n 1 HEAD | grep -q "docs: generate docs and update README.md"; then
   exit 0
 fi
-if git log --format=%B -n 1 HEAD | grep -q "chore(dont up version):"; then
+if git log --format=%B -n 1 HEAD | grep -qE "norelease|no release|dont up version"; then
   exit 0
 fi
+
 npm run release
 npm run doc
 git add .
