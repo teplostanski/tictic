@@ -14,9 +14,10 @@
     "prepare": "npm run build && npm run doc",
     "test": "jest",
     "prepublish": "npm run build && npm run doc",
-    "geninfo": "chmod +rx generatePkgInfo.cjs && node generatePkgInfo.cjs",
-    "doc": "typedoc --readme none --options typedoc.config.cjs --includeVersion --entryPointStrategy Expand --entryDocument index.md --excludeGroups true && npm run replace",
-    "replace": "npm run geninfo && chmod +rx generatePkgInfo.cjs && node replaceInDoc.js",
+    "geninfo": "chmod +rx ./scripts/generatePkgInfo.cjs && node ./scripts/generatePkgInfo.cjs",
+    "doc:clear": "chmod +rx ./scripts/removeOldDocs.cjs && node ./scripts/removeOldDocs.cjs",
+    "doc": "npm run doc:clear && typedoc --readme none --options typedoc.config.cjs --includeVersion --entryPointStrategy Expand --entryDocument index.md --excludeGroups true && npm run replace",
+    "replace": "npm run geninfo && chmod +rx ./scripts/replaceInDoc.js && node ./scripts/replaceInDoc.js",
     "release": "standard-version",
     "push": "[ \"$(git rev-parse --abbrev-ref HEAD)\" = \"main\" ] && git push && git push origin --tags && npm publish || echo \"Not on main branch\""
   },
@@ -77,5 +78,8 @@
     "typescript": "^4.9.5",
     "vite": "^4.4.11",
     "vite-plugin-dts": "^3.6.0"
+  },
+  "dependencies": {
+    "fs-extra": "^11.1.1"
   }
 }
