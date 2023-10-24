@@ -1,6 +1,6 @@
 {
   "name": "tictic",
-  "version": "0.2.21",
+  "version": "1.0.0",
   "description": "Flexible library for date and time management",
   "type": "module",
   "main": "./dist/index.es.js",

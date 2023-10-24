@@ -1,4 +1,5 @@
 import { formatValueWithLeadingZero } from '../helpers/formatValueWithLeadingZero'
+import { setLetterCase } from '../helpers/setLetterCase'
 import { ITimeOptions } from '../types'
 
 /**
@@ -6,11 +7,8 @@ import { ITimeOptions } from '../types'
  */
 const ValidTimeFormats = {
   HH_MM_SS: 'hh:mm:ss',
-  HH_MM_SS_12H: 'hh:mm:ss 12h',
   HH_MM: 'hh:mm',
-  HH_MM_12H: 'hh:mm 12h',
   MM_SS: 'mm:ss',
-  MM_SS_12H: 'mm:ss 12h',
 } as const
 
 /**
@@ -25,11 +23,16 @@ const ValidTimeFormats = {
  * getFormattedTime({
  *   time: new Date().getTime(),
  *   sep: ':',
- *   format: 'hh:mm:ss 12h'
+ *   format: 'hh:mm:ss',
+ *   meridiem: {
+ *     format: '24h',
+ *     case: 'uppercase',
+ *     position: 'end'
+ *   }
  * })
  * ```
  */
-export const getFormattedTime = ({ time = new Date().getTime(), sep = ':', format = 'hh:mm:ss' }: ITimeOptions): string => {
+export const getFormattedTime = ({ time = new Date().getTime(), sep = ':', format = 'hh:mm:ss', meridiem = { format: '24h' } }: ITimeOptions): string => {
   if (!Object.values(ValidTimeFormats).includes(format)) {
     throw new Error('Invalid time format')
   }
@@ -38,12 +41,16 @@ export const getFormattedTime = ({ time = new Date().getTime(), sep = ':', forma
     throw new Error('Separator must be a single character')
   }
 
+  if (meridiem.format === '24h' && (meridiem.case || meridiem.position)) {
+    console.warn("When using the 24-hour format, 'position' and 'case' parameters are not necessary. They are only relevant for the 12-hour format.")
+  }
+
   const date = parseTimeInput(time)
 
   const HOURS = date.getHours()
   const MINUTES = date.getMinutes()
   const SECONDS = date.getSeconds()
-  const is12HourFormat = format.includes('12h')
+  const is12HourFormat = meridiem.format === '12h'
 
   const formattedHours = formatHours(HOURS, is12HourFormat)
   const formattedTimeParts = []
@@ -60,11 +67,18 @@ export const getFormattedTime = ({ time = new Date().getTime(), sep = ':', forma
     formattedTimeParts.push(formatValueWithLeadingZero(SECONDS))
   }
 
-  let result = formattedTimeParts.join(sep)
+  const result = formattedTimeParts.join(sep)
 
-  // Add the period with a space before it, if using the 12-hour format.
+  let period = is12HourFormat ? getPeriod(HOURS) : ''
+
+  period = setLetterCase(period, meridiem.case)
+
+  if (meridiem.position === 'start' && is12HourFormat) {
+    return `${period} ${result}`
+  }
+
   if (is12HourFormat) {
-    result += ` ${getPeriod(HOURS)}`
+    return `${result} ${period}`
   }
 
   return result
@@ -118,7 +132,7 @@ const formatHours = (hours: number, is12HourFormat: boolean): number => {
  * Gets AM/PM period based on hours.
  *
  * @param hours Hours.
- * @returns 'AM' or 'PM'.
+ * @returns 'am' or 'pm'.
  */
 const getPeriod = (hours: number): string => {
   return hours >= 12 ? 'PM' : 'AM'

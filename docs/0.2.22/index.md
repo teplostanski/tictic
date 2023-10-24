@@ -1,4 +1,4 @@
-# tictic - v0.2.21
+# tictic - v0.2.22
 
 ## Index
 

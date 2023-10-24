@@ -16,7 +16,12 @@ Returns a formatted time string based on the provided options.
 getFormattedTime({
   time: new Date().getTime(),
   sep: ':',
-  format: 'hh:mm:ss 12h',
+  format: 'hh:mm:ss',
+  meridiem: {
+    format: '24h',
+    case: 'uppercase',
+    position: 'end',
+  },
 })
 ```
 

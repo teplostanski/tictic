@@ -1,6 +1,8 @@
 export type TDate = Date | string
 
-export type TLetterCase = 'capitalize' | 'uppercase' | 'lowercase'
+export type TLetterCase = 'capitalize' | 'uppercase' | 'lowercase' | undefined
+
+type TPosition = 'start' | 'end'
 
 /**
  * Options for time formatting.
@@ -17,9 +19,32 @@ export interface ITimeOptions {
   sep?: string
   /**
    * @param format Format in which the time should be returned.
-   * Possible formats include `hh:mm:ss`, `hh:mm`, etc. Can also include `12h` for 12-hour time format. @default 'hh:mm:ss'
+   * Possible formats include `hh:mm:ss`, `hh:mm`, etc. @default 'hh:mm:ss'
    */
-  format?: 'hh:mm:ss' | 'hh:mm:ss 12h' | 'hh:mm' | 'hh:mm 12h' | 'mm:ss' | 'mm:ss 12h'
+  format?: 'hh:mm:ss' | 'hh:mm' | 'mm:ss'
+
+  /**
+   * @param meridiem The object of the AM/PM parameters @default {
+      format: '24h',
+      case: 'capitalize',
+      position: 'end',
+    }
+   */
+  meridiem?: {
+    /**
+     * @param meridiem.format Choose between '12h' or '24h' format. @default `'24h'`
+     */
+    format: '12h' | '24h'
+    /**
+     * @param meridiem.case Changes the case of AM/PM (capitalize, uppercase, lowercase) @default `'capitalize'`
+     */
+    case?: TLetterCase
+
+    /**
+     * @param meridiem.position Sets the position of AM/PM (start or end) @default `'end'`
+     */
+    position?: TPosition
+  }
 }
 
 /**
@@ -102,7 +127,7 @@ export interface IDateOptions {
     /**
      * @param weekDays.position Position of the day of the week relative to the date: 'start' | 'end' @default `'start'`
      */
-    position: 'start' | 'end'
+    position: TPosition
   }
 
   /**
