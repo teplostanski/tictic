@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/teplostanski/tictic/compare/v0.2.21...v1.0.0) (2023-10-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **release:** The time format selection has been moved from the 'format' parameter to the 'meridiem' property. This change introduces incompatibility with previous usages of the function. Please update the 'meridiem' property accordingly to ensure correct behavior.
+
+### Features
+
+* **release:** move 12h/24h format selection to meridiem prop ([ff7ab34](https://github.com/teplostanski/tictic/commit/ff7ab34eabd585fcdec2815b717e880374ba46ba))
+
 ### [0.2.21](https://github.com/teplostanski/tictic/compare/v0.2.20...v0.2.21) (2023-10-22)
 
 ### [0.2.20](https://github.com/teplostanski/tictic/compare/v0.2.19...v0.2.20) (2023-10-22)
