@@ -28,7 +28,7 @@ Install `tictic` via npm:
 npm install tictic --save
 ```
 
-# [Docs 0.3.0](https://github.com/teplostanski/tictic/tree/main/docs/0.3.0/index.md)
+# [Docs 1.0.0](https://github.com/teplostanski/tictic/tree/main/docs/1.0.0/index.md)
 
 ## Usage
 #### Date Formatting
@@ -68,7 +68,12 @@ import { getFormattedTime } from 'tictic'
 const formattedTime = getFormattedTime({
   time: new Date().getTime(),
   sep: ':',
-  format: 'hh:mm:ss 12h'
+  format: 'hh:mm:ss',
+  meridiem: {
+    format: '12h',
+    case: 'uppercase',
+    position: 'end',
+  }
 });
 
 console.log(formattedTime);  // Outputs something like: "01:45:20 PM"

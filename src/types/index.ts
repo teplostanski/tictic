@@ -24,11 +24,7 @@ export interface ITimeOptions {
   format?: 'hh:mm:ss' | 'hh:mm' | 'mm:ss'
 
   /**
-   * @param meridiem The object of the AM/PM parameters @default {
-      format: '24h',
-      case: 'capitalize',
-      position: 'end',
-    }
+   * @param meridiem The object of the AM/PM parameters
    */
   meridiem?: {
     /**
@@ -36,12 +32,12 @@ export interface ITimeOptions {
      */
     format: '12h' | '24h'
     /**
-     * @param meridiem.case Changes the case of AM/PM (capitalize, uppercase, lowercase) @default `'capitalize'`
+     * @param meridiem.case Changes the case of AM/PM (capitalize, uppercase, lowercase)
      */
     case?: TLetterCase
 
     /**
-     * @param meridiem.position Sets the position of AM/PM (start or end) @default `'end'`
+     * @param meridiem.position Sets the position of AM/PM (start or end)
      */
     position?: TPosition
   }

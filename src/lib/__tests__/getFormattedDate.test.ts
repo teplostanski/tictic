@@ -3,7 +3,13 @@ import { getFormattedDate } from '../getFormattedDate'
 describe('getFormattedDate', () => {
   const currentDate = new Date()
   const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  const decomposeDate = (date: Date) => date.toISOString().split('T')[0].split('-')
+  const decomposeDate = (date: Date): [string, string, string] => {
+    const year = date.getFullYear().toString()
+    const month = (date.getMonth() + 1).toString().padStart(2, '0')
+    const day = date.getDate().toString().padStart(2, '0')
+
+    return [year, month, day]
+  }
   const [year, month, day] = decomposeDate(currentDate)
 
   it('should return default formatted date for today', () => {
