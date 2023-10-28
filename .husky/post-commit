@@ -1,12 +1,36 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+
+set -e
+
 echo "This script runs after every commit!"
+
+# Source the husky script
 . "$(dirname -- "$0")/_/husky.sh"
 
-if git log --format=%B -n 1 HEAD | grep -qE "chore\(release\):|docs: generate docs and update README.md|norelease|no release|dont up version|\(release\)|Merge branch"; then
+# Function to print yellow text
+yellow() {
+  printf "\e[33m$1\e[0m\n"
+}
+
+# Fetch the last commit message
+LAST_COMMIT_MSG=$(git log --format=%B -n 1 HEAD)
+
+# Check if the commit message matches one of the specified patterns and exit if true
+if echo "$LAST_COMMIT_MSG" | grep -qE "chore\(release\):|docs:|Merge branch"; then
+  yellow "\nVERSION WAS NOT UPGRADED.\n"
   exit 0
 fi
 
-npm run release
-npm run doc
-git add .
-git commit -m 'docs: generate docs and update README.md'
+# Check if the commit message contains (release) but not chore(release), then execute the specified commands
+if echo "$LAST_COMMIT_MSG" | grep -qE "\(release\)" && ! echo "$LAST_COMMIT_MSG" | grep -qE "chore\(release\)"; then
+  npm run release
+  npm run doc
+  git add .
+  # Disable husky for this commit to prevent potential infinite loops
+  HUSKY=0 git commit -m 'docs: generate docs and update README.md'
+  exit 0
+fi
+
+# For all other cases, print a message and exit
+yellow "\nVERSION WAS NOT UPGRADED.\n"
+exit 0
