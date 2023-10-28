@@ -1,5 +1,5 @@
 import { coreTimer } from './core'
-import { VanillaTimerElements, VanillaTimerOptions } from './types'
+import { TimerOptions, VanillaTimerElements, VanillaTimerOptions } from './types'
 
 export const vanillaTimer = (options: VanillaTimerOptions) => {
   const { elements, ...timerOptions } = options
@@ -8,7 +8,7 @@ export const vanillaTimer = (options: VanillaTimerOptions) => {
   const updateDisplay = () => {
     const currentTime = timer.getTime()
     for (const key in elements) {
-      if (key !== 'wrapper' && key in currentTime) {
+      if (key !== 'wrapper' && options[key as keyof TimerOptions] !== undefined) {
         const elementId = elements[key as keyof VanillaTimerElements]
         const element = document.getElementById(elementId)
         if (element) {

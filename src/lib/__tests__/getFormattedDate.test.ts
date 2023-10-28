@@ -48,7 +48,8 @@ describe('getFormattedDate', () => {
         position: 'start',
       },
     })
-    expect(result.startsWith(days[currentDate.getDay() - 1])).toBeTruthy()
+    const dayIndex = (currentDate.getDay() - 1 + 7) % 7
+    expect(result.startsWith(days[dayIndex])).toBeTruthy()
   })
 
   it('should increment day by 1', () => {

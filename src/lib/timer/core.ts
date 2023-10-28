@@ -32,6 +32,23 @@ export const coreTimer = (options: TimerOptions): TimerInstance => {
   let millisecondInterval: ReturnType<typeof setInterval> | undefined
   const units: TimeUnit[] = ['seconds', 'minutes', 'hours', 'days']
 
+  const timeUnitsInOrder: (keyof TimerOptions)[] = ['days', 'hours', 'minutes', 'seconds', 'milliseconds']
+
+  const definedUnits = timeUnitsInOrder.filter((unit) => options[unit] !== undefined)
+
+  for (let i = 0; i < definedUnits.length - 1; i++) {
+    const currentUnitIndex = timeUnitsInOrder.indexOf(definedUnits[i])
+    const nextUnitIndex = timeUnitsInOrder.indexOf(definedUnits[i + 1])
+
+    if (nextUnitIndex - currentUnitIndex !== 1) {
+      throw new Error(
+        `Missing parameter(s) between '${definedUnits[i]}' and '${
+          definedUnits[i + 1]
+        }' Make sure that the transmitted time units follow the order: days, hours, minutes, seconds. You can't miss what's in the middle. For example, days -> hours -> seconds without minutes are not allowed.`,
+      )
+    }
+  }
+
   const formatNumberWithLeadingZeros = (value: number, digits: number): string => {
     let result = value.toString()
     while (result.length < digits) {
@@ -113,6 +130,7 @@ export const coreTimer = (options: TimerOptions): TimerInstance => {
   }
 
   const getTime = () => {
+    // Функция для форматирования числа без ведущих нулей, но с пробелом:
     const formatNumberWithSpace = (value: number, digits: number): string => {
       let result = value.toString()
       while (result.length < digits) {
@@ -121,6 +139,7 @@ export const coreTimer = (options: TimerOptions): TimerInstance => {
       return result
     }
 
+    // Вычисляем максимальную длину слова для каждой единицы времени (кроме миллисекунд)
     const maxDaysLength = getMaxWordLength(localization[locale].days)
     const maxHoursLength = getMaxWordLength(localization[locale].hours)
     const maxMinutesLength = getMaxWordLength(localization[locale].minutes)
@@ -131,7 +150,7 @@ export const coreTimer = (options: TimerOptions): TimerInstance => {
       hours: leadingZeros ? formatNumberWithLeadingZeros(timeLeft.hours, 2) : formatNumberWithSpace(timeLeft.hours, 2),
       minutes: leadingZeros ? formatNumberWithLeadingZeros(timeLeft.minutes, 2) : formatNumberWithSpace(timeLeft.minutes, 2),
       seconds: leadingZeros ? formatNumberWithLeadingZeros(timeLeft.seconds, 2) : formatNumberWithSpace(timeLeft.seconds, 2),
-      milliseconds: formatNumberWithLeadingZeros(timeLeft.milliseconds, 3),
+      milliseconds: formatNumberWithLeadingZeros(timeLeft.milliseconds, 3), // Всегда форматируем миллисекунды с ведущими нулями
       daysWord: showWords ? getWordForm(timeLeft.days, localization[locale].days, maxDaysLength) : '',
       hoursWord: showWords ? getWordForm(timeLeft.hours, localization[locale].hours, maxHoursLength) : '',
       minutesWord: showWords ? getWordForm(timeLeft.minutes, localization[locale].minutes, maxMinutesLength) : '',
