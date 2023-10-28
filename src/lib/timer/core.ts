@@ -113,19 +113,25 @@ export const coreTimer = (options: TimerOptions): TimerInstance => {
   }
 
   const getTime = () => {
-    // Вычисляем максимальную длину слова для каждой единицы времени (кроме миллисекунд)
+    const formatNumberWithSpace = (value: number, digits: number): string => {
+      let result = value.toString()
+      while (result.length < digits) {
+        result = '\u00A0' + result
+      }
+      return result
+    }
+
     const maxDaysLength = getMaxWordLength(localization[locale].days)
     const maxHoursLength = getMaxWordLength(localization[locale].hours)
     const maxMinutesLength = getMaxWordLength(localization[locale].minutes)
     const maxSecondsLength = getMaxWordLength(localization[locale].seconds)
 
     return {
-      days: leadingZeros ? formatNumberWithLeadingZeros(timeLeft.days, 2) : timeLeft.days,
-      hours: leadingZeros ? formatNumberWithLeadingZeros(timeLeft.hours, 2) : timeLeft.hours,
-      minutes: leadingZeros ? formatNumberWithLeadingZeros(timeLeft.minutes, 2) : timeLeft.minutes,
-      seconds: leadingZeros ? formatNumberWithLeadingZeros(timeLeft.seconds, 2) : timeLeft.seconds,
-      milliseconds: formatNumberWithLeadingZeros(timeLeft.milliseconds, 3), // Всегда форматируем миллисекунды с ведущими нулями
-
+      days: leadingZeros ? formatNumberWithLeadingZeros(timeLeft.days, 2) : formatNumberWithSpace(timeLeft.days, 2),
+      hours: leadingZeros ? formatNumberWithLeadingZeros(timeLeft.hours, 2) : formatNumberWithSpace(timeLeft.hours, 2),
+      minutes: leadingZeros ? formatNumberWithLeadingZeros(timeLeft.minutes, 2) : formatNumberWithSpace(timeLeft.minutes, 2),
+      seconds: leadingZeros ? formatNumberWithLeadingZeros(timeLeft.seconds, 2) : formatNumberWithSpace(timeLeft.seconds, 2),
+      milliseconds: formatNumberWithLeadingZeros(timeLeft.milliseconds, 3),
       daysWord: showWords ? getWordForm(timeLeft.days, localization[locale].days, maxDaysLength) : '',
       hoursWord: showWords ? getWordForm(timeLeft.hours, localization[locale].hours, maxHoursLength) : '',
       minutesWord: showWords ? getWordForm(timeLeft.minutes, localization[locale].minutes, maxMinutesLength) : '',
