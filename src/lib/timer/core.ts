@@ -89,6 +89,20 @@ export const coreTimer = (options: TimerOptions): TimerInstance => {
     return padWord(chosenWord, maxLength)
   }
 
+  const stop = () => {
+    if (interval) clearInterval(interval)
+    if (millisecondInterval) clearInterval(millisecondInterval)
+    interval = undefined
+    millisecondInterval = undefined
+
+    // Обнуляем все единицы времени:
+    timeLeft.days = 0
+    timeLeft.hours = 0
+    timeLeft.minutes = 0
+    timeLeft.seconds = 0
+    timeLeft.milliseconds = 0
+  }
+
   const update = () => {
     let carry = -1
     for (const unit of units) {
@@ -98,6 +112,10 @@ export const coreTimer = (options: TimerOptions): TimerInstance => {
         carry = -1
         timeLeft[unit] = unit === 'seconds' ? 59 : unit === 'minutes' ? 59 : unit === 'hours' ? 23 : 0
       }
+    }
+
+    if (timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0 && timeLeft.milliseconds === 0) {
+      stop()
     }
   }
 
@@ -110,27 +128,17 @@ export const coreTimer = (options: TimerOptions): TimerInstance => {
   }
 
   const start = (callback?: () => void) => {
-    let lastTime = Date.now()
+    update()
+    updateMilliseconds()
 
-    const frame = () => {
-      const now = Date.now()
-      const delta = now - lastTime
-      if (delta >= 1000) {
-        lastTime = now
-        update()
-      }
-
+    interval = setInterval(update, 1000)
+    millisecondInterval = setInterval(() => {
       updateMilliseconds()
       if (callback) callback()
-
-      requestAnimationFrame(frame)
-    }
-
-    requestAnimationFrame(frame)
+    }, 10)
   }
 
   const getTime = () => {
-    // Функция для форматирования числа без ведущих нулей, но с пробелом:
     const formatNumberWithSpace = (value: number, digits: number): string => {
       let result = value.toString()
       while (result.length < digits) {
@@ -139,7 +147,6 @@ export const coreTimer = (options: TimerOptions): TimerInstance => {
       return result
     }
 
-    // Вычисляем максимальную длину слова для каждой единицы времени (кроме миллисекунд)
     const maxDaysLength = getMaxWordLength(localization[locale].days)
     const maxHoursLength = getMaxWordLength(localization[locale].hours)
     const maxMinutesLength = getMaxWordLength(localization[locale].minutes)
@@ -150,20 +157,13 @@ export const coreTimer = (options: TimerOptions): TimerInstance => {
       hours: leadingZeros ? formatNumberWithLeadingZeros(timeLeft.hours, 2) : formatNumberWithSpace(timeLeft.hours, 2),
       minutes: leadingZeros ? formatNumberWithLeadingZeros(timeLeft.minutes, 2) : formatNumberWithSpace(timeLeft.minutes, 2),
       seconds: leadingZeros ? formatNumberWithLeadingZeros(timeLeft.seconds, 2) : formatNumberWithSpace(timeLeft.seconds, 2),
-      milliseconds: formatNumberWithLeadingZeros(timeLeft.milliseconds, 3), // Всегда форматируем миллисекунды с ведущими нулями
+      milliseconds: formatNumberWithLeadingZeros(timeLeft.milliseconds, 3),
       daysWord: showWords ? getWordForm(timeLeft.days, localization[locale].days, maxDaysLength) : '',
       hoursWord: showWords ? getWordForm(timeLeft.hours, localization[locale].hours, maxHoursLength) : '',
       minutesWord: showWords ? getWordForm(timeLeft.minutes, localization[locale].minutes, maxMinutesLength) : '',
       secondsWord: showWords ? getWordForm(timeLeft.seconds, localization[locale].seconds, maxSecondsLength) : '',
       millisecondsWord: showWords ? getWordForm(timeLeft.milliseconds, localization[locale].milliseconds, 0) : '',
     }
-  }
-
-  const stop = () => {
-    if (interval) clearInterval(interval)
-    if (millisecondInterval) clearInterval(millisecondInterval)
-    interval = undefined
-    millisecondInterval = undefined
   }
 
   return {

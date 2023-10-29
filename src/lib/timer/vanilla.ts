@@ -26,7 +26,10 @@ export const vanillaTimer = (options: VanillaTimerOptions) => {
     start: () => {
       timer.start(updateDisplay)
     },
-    stop: timer.stop,
+    stop: () => {
+      timer.stop()
+      updateDisplay()
+    },
     updateDisplay,
   }
 }
