@@ -29,8 +29,6 @@ export const coreTimer = (options: TimerOptions): TimerInstance => {
   }
 
   let interval: ReturnType<typeof setInterval> | undefined
-  let millisecondInterval: ReturnType<typeof setInterval> | undefined
-  const units: TimeUnit[] = ['seconds', 'minutes', 'hours', 'days']
 
   const timeUnitsInOrder: (keyof TimerOptions)[] = ['days', 'hours', 'minutes', 'seconds', 'milliseconds']
 
@@ -91,11 +89,6 @@ export const coreTimer = (options: TimerOptions): TimerInstance => {
 
   const stop = () => {
     if (interval) clearInterval(interval)
-    if (millisecondInterval) clearInterval(millisecondInterval)
-    interval = undefined
-    millisecondInterval = undefined
-
-    // Обнуляем все единицы времени:
     timeLeft.days = 0
     timeLeft.hours = 0
     timeLeft.minutes = 0
@@ -104,36 +97,36 @@ export const coreTimer = (options: TimerOptions): TimerInstance => {
   }
 
   const update = () => {
-    let carry = -1
-    for (const unit of units) {
-      timeLeft[unit] += carry
-      carry = 0
-      if (timeLeft[unit] < 0) {
-        carry = -1
-        timeLeft[unit] = unit === 'seconds' ? 59 : unit === 'minutes' ? 59 : unit === 'hours' ? 23 : 0
-      }
-    }
-
-    if (timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0 && timeLeft.milliseconds === 0) {
-      stop()
-    }
-  }
-
-  const updateMilliseconds = () => {
     timeLeft.milliseconds -= 10
 
     if (timeLeft.milliseconds < 0) {
       timeLeft.milliseconds = 990
+      timeLeft.seconds--
+
+      if (timeLeft.seconds < 0) {
+        timeLeft.seconds = 59
+        timeLeft.minutes--
+
+        if (timeLeft.minutes < 0) {
+          timeLeft.minutes = 59
+          timeLeft.hours--
+
+          if (timeLeft.hours < 0) {
+            timeLeft.hours = 23
+            timeLeft.days--
+
+            if (timeLeft.days < 0) {
+              stop()
+            }
+          }
+        }
+      }
     }
   }
 
   const start = (callback?: () => void) => {
-    update()
-    updateMilliseconds()
-
-    interval = setInterval(update, 1000)
-    millisecondInterval = setInterval(() => {
-      updateMilliseconds()
+    interval = setInterval(() => {
+      update()
       if (callback) callback()
     }, 10)
   }
