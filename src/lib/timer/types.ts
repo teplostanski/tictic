@@ -33,6 +33,9 @@ export interface TimerInstance {
     secondsWord: string
     millisecondsWord: string
   }
+  setTime: (time: Record<TimeUnit, number>) => void
+  pause: () => void
+  resume: (callback?: () => void) => void
 }
 
 export interface VanillaTimerElements {

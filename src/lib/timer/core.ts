@@ -28,7 +28,7 @@ export const coreTimer = (options: TimerOptions): TimerInstance => {
     milliseconds,
   }
 
-  let interval: ReturnType<typeof setInterval> | undefined
+  let interval: ReturnType<typeof setInterval> | null
 
   const timeUnitsInOrder: (keyof TimerOptions)[] = ['days', 'hours', 'minutes', 'seconds', 'milliseconds']
 
@@ -87,13 +87,34 @@ export const coreTimer = (options: TimerOptions): TimerInstance => {
     return padWord(chosenWord, maxLength)
   }
 
-  const stop = () => {
+  const start = (callback?: () => void) => {
     if (interval) clearInterval(interval)
+    interval = setInterval(() => {
+      update()
+      if (callback) callback()
+    }, 10)
+  }
+
+  const pause = () => {
+    if (interval) clearInterval(interval)
+    interval = null
+  }
+
+  const resume = (callback?: () => void) => {
+    if (!interval) start(callback)
+  }
+
+  const reset = () => {
     timeLeft.days = 0
     timeLeft.hours = 0
     timeLeft.minutes = 0
     timeLeft.seconds = 0
     timeLeft.milliseconds = 0
+  }
+
+  const stop = () => {
+    pause()
+    reset()
   }
 
   const update = () => {
@@ -124,11 +145,8 @@ export const coreTimer = (options: TimerOptions): TimerInstance => {
     }
   }
 
-  const start = (callback?: () => void) => {
-    interval = setInterval(() => {
-      update()
-      if (callback) callback()
-    }, 10)
+  const setTime = (time: Record<TimeUnit, number>) => {
+    Object.assign(timeLeft, time)
   }
 
   const getTime = () => {
@@ -159,37 +177,42 @@ export const coreTimer = (options: TimerOptions): TimerInstance => {
     }
   }
 
+  const getTimeString = (timeLeft: Record<TimeUnit, number>, locale: 'ru' | 'en', showWords: boolean, sep: string): string => {
+    const { days, hours, minutes, seconds, milliseconds } = getTime()
+
+    let result = ''
+
+    if (showWords) {
+      const maxDayWordLength = getMaxWordLength(localization[locale].days)
+      const maxHourWordLength = getMaxWordLength(localization[locale].hours)
+      const maxMinuteWordLength = getMaxWordLength(localization[locale].minutes)
+      const maxSecondWordLength = getMaxWordLength(localization[locale].seconds)
+      const maxMillisecondWordLength = getMaxWordLength(localization[locale].milliseconds)
+
+      result += `${days} ${getWordForm(timeLeft.days, localization[locale].days, maxDayWordLength)}${sep}`
+      result += `${hours} ${getWordForm(timeLeft.hours, localization[locale].hours, maxHourWordLength)}${sep}`
+      result += `${minutes} ${getWordForm(timeLeft.minutes, localization[locale].minutes, maxMinuteWordLength)}${sep}`
+      result += `${seconds} ${getWordForm(timeLeft.seconds, localization[locale].seconds, maxSecondWordLength)}${sep}`
+      result += `${milliseconds} ${getWordForm(timeLeft.milliseconds, localization[locale].milliseconds, maxMillisecondWordLength)}`
+    } else {
+      result += `${days}:${hours}:${minutes}:${seconds}:${milliseconds}`
+    }
+
+    return result
+  }
+
   return {
     days: timeLeft.days,
     hours: timeLeft.hours,
     minutes: timeLeft.minutes,
     seconds: timeLeft.seconds,
     milliseconds: timeLeft.milliseconds,
-    toString: () => {
-      const { days, hours, minutes, seconds, milliseconds } = getTime()
-
-      let result = ''
-
-      if (showWords) {
-        const maxDayWordLength = getMaxWordLength(localization[locale].days)
-        const maxHourWordLength = getMaxWordLength(localization[locale].hours)
-        const maxMinuteWordLength = getMaxWordLength(localization[locale].minutes)
-        const maxSecondWordLength = getMaxWordLength(localization[locale].seconds)
-        const maxMillisecondWordLength = getMaxWordLength(localization[locale].milliseconds)
-
-        result += `${days} ${getWordForm(timeLeft.days, localization[locale].days, maxDayWordLength)}${sep}`
-        result += `${hours} ${getWordForm(timeLeft.hours, localization[locale].hours, maxHourWordLength)}${sep}`
-        result += `${minutes} ${getWordForm(timeLeft.minutes, localization[locale].minutes, maxMinuteWordLength)}${sep}`
-        result += `${seconds} ${getWordForm(timeLeft.seconds, localization[locale].seconds, maxSecondWordLength)}${sep}`
-        result += `${milliseconds} ${getWordForm(timeLeft.milliseconds, localization[locale].milliseconds, maxMillisecondWordLength)}`
-      } else {
-        result += `${days}:${hours}:${minutes}:${seconds}:${milliseconds}`
-      }
-
-      return result
-    },
+    toString: () => getTimeString(timeLeft, locale, showWords, sep),
     start,
     stop,
     getTime,
+    setTime,
+    pause,
+    resume,
   }
 }

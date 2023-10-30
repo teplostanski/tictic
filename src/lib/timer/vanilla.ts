@@ -1,5 +1,5 @@
 import { coreTimer } from './core'
-import { TimerOptions, VanillaTimerElements, VanillaTimerOptions } from './types'
+import { TimeUnit, TimerOptions, VanillaTimerElements, VanillaTimerOptions } from './types'
 
 export const vanillaTimer = (options: VanillaTimerOptions) => {
   const { elements, ...timerOptions } = options
@@ -22,6 +22,10 @@ export const vanillaTimer = (options: VanillaTimerOptions) => {
     }
   }
 
+  const setTimer = (time: Record<TimeUnit, number>) => {
+    timer.setTime(time)
+  }
+
   return {
     start: () => {
       timer.start(updateDisplay)
@@ -30,6 +34,13 @@ export const vanillaTimer = (options: VanillaTimerOptions) => {
       timer.stop()
       updateDisplay()
     },
+    pause: () => {
+      timer.pause()
+    },
     updateDisplay,
+    setTimer,
+    resume: () => {
+      timer.resume(updateDisplay)
+    },
   }
 }
